@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Real Estate Price Prediction</title>
+  <style>
+  body {
+    font-family: "Lora", serif;
+    background-color: #f3f7ff;
+    margin: 0;
+    padding: 0;
+  }
+  .banner-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+    font-family: "Lora", serif;
+  }
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    label {
+      display: block;
+      margin-bottom: 7px;
+    }
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 7px;
+      margin-bottom: 10px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+      font-family: "Josefin Sans", sans-serif;
+    }
+    select[id="type"],
+    select {
+      width: 104%;
+      padding: 7px;
+      margin-bottom: 10px;
+      border-radius: 3px;
+      border: 1px solid #ccc;
+      font-family: "Josefin Sans", sans-serif;
+    }
+    input[type="submit"] {
+      background-color: #528cfe;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-family: "Josefin Sans", sans-serif;
+    }
+    input[type="submit"]:hover {
+      background-color: #0056fe;
+    }
+    h2 {
+      margin-top: 20px;
+    }
+    p {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="{{url_for('static', filename='skyscrapers.jpg')}}" class="banner-image" alt="Banner Image">
+  <h1>Real Estate Price Prediction</h1>
+    <form action="/predict" method="POST">
+    <label for="Area">Area (in square meter):</label>
+    <input type="text" id="Area" name="Area" required>
+
+    <label for="City">City:</label>
+    <input type="text" id="City" name="City" required>
+
+    <label for="city_area">City Area:</label>
+    <input type="text" id="city_area" name="city_area"  required />
+
+    <label for="type">Type of Property:</label>
+    <select id="type" name="type" required>
+      <option value="דירה">Apartment</option>
+      <option value="דירת גן">Garden Apartment</option>
+      <option value="פנטהאוז">Penthouse</option>
+      <option value="בית פרטי">Private house</option>
+      <option value="אחר">Other</option>
+    </select>
+
+    <label for="hasElevator ">Is there an elevator?</label>
+    <select id="hasElevator " name="hasElevator " required>
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </select>
+
+    <label for="hasStorage ">Is there a storage room?</label>
+    <select id="hasStorage " name="hasStorage " required>
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </select>
+
+    <label for="hasAirCondition ">Is there an Air Conditioner?</label>
+    <select id="hasAirCondition " name="hasAirCondition " required>
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </select>
+
+    <label for="hasBalcony ">Is there a balcony?</label>
+    <select id="hasBalcony " name="hasBalcony " required>
+      <option value="0">No</option>
+      <option value="1">Yes</option>
+    </select>
+
+    <label for="entranceDate ">When is the entrance date?</label>
+    <select id="entranceDate " name="entranceDate " required>
+      <option value="not_defined">Not defined</option>
+      <option value="flexible">Flexible</option>
+      <option value="less_than_6_months">Less than 6 months</option>
+      <option value="months_6_12">Between 6 and 12 months</option>
+      <option value="above_year">More than a year</option>
+    </select>
+
+    <label for="condition ">Condition of the property:</label>
+    <select id="condition " name="condition " required>
+      <option value="לא צויין">Not defined</option>
+      <option value="דורש שיפוץ">Needs renovation</option>
+      <option value="ישן">Old</option>
+      <option value="משופץ">Renovated</option>
+      <option value="חדש">New</option>
+      <option value="שמור">Good condition</option>
+    </select>
+
+    <label for="furniture ">Are there furniture?</label>
+    <select id="furniture " name="furniture " required>
+      <option value="לא צויין">Not defined</option>
+      <option value="חלקי">Partly</option>
+      <option value="אין">Not furnished</option>
+      <option value="מלא">Furnished</option>
+    </select>
+
+    <input type="submit" value="Quick Price Prediction">
+  <form action="{{ url_for('predict') }}" method="POST">
+
+  {% if prediction %}
+  <h2>Prediction Result:</h2> 
+  <p>The predicted price of the property is: {{ prediction[0] }} NIS</p>
+  {% endif %}
+</div>
+</body>
+</html>
